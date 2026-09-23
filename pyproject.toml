@@ -1,0 +1,139 @@
+[project]
+name = "edc-lab-results-import"
+version = "0.0.0"
+description = "Imports lab results from a folder of PDF reports"
+readme = "README.rst"
+authors = [
+    { name = "Erik van Widenfelt", email = "ew2789@gmail.com" },
+]
+maintainers = [
+    { name = "Erik van Widenfelt", email = "ew2789@gmail.com" },
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Framework :: Django :: 5.2",
+    "Framework :: Django :: 6.0",
+    "Framework :: Django :: 6.1",
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+requires-python = ">=3.12"
+dependencies = [
+    "clinicedc>=4.11.0",
+    "pandas>=3.0.6",
+    "parse-trial-labs>=0.6.0",
+    "tqdm>=4.70.1",
+]
+
+[project.urls]
+Homepage = "https://github.com/clinicedc/edc-lab-results-import"
+Documentation = "https://github.com/clinicedc/edc-lab-results-import/docs"
+Repository = "https://github.com/clinicedc/edc-lab-results-import.git"
+Changelog = "https://github.com/clinicedc/edc-lab-results-import/blob/main/CHANGES"
+
+
+[build-system]
+requires = ["uv_build>=0.10.0,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-root = "src"
+module-name = ["edc_lab_results_import"]
+source-exclude = ["edc_lab_results_import/tests/**"]
+namespace = false
+
+[tool.ruff]
+line-length = 95
+indent-width = 4
+target-version = "py312"
+extend-exclude = [".tox", ".venv"]
+
+[tool.ruff.lint]
+select = [
+    "A",
+    "ARG",
+    "B",
+    "C90",
+    "COM",
+    "DJ",
+    "DTZ",
+    "E",
+    "F",
+    "FA",
+    "FURB",
+    "I",
+    "INT",
+    "N",
+    "PD",
+    "PERF",
+    "PL",
+    "PLR",
+    "PTH",
+    "RET",
+    "RUF",
+    "S",
+    "SIM",
+    "T20",
+    "TRY",
+    "UP",
+    "W",
+    # "FIX",
+]
+ignore = [
+    "DJ008",
+    "DJ007",
+    "DJ006",
+    "COM812",
+    "PLC0206",
+    "TRY003", # temporarily
+    "PLR0913", # temporarily
+    "ARG001", # temporarily
+    "DJ012", # temporarily
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 12
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.rstcheck]
+ignore_directives = ["toctree"]
+
+[dependency-groups]
+dev = [
+    "clinicedc-tests>=1.5.0",
+    "tox-uv>=1.36.0",
+]
+
+docs = [
+    "furo>=2025.7.19",
+    "sphinx>=8.2.3",
+    "sphinx-design>=0.6.1",
+    "sphinx-inline-tabs>=2023.4.21",
+    "sphinx-rtd-theme>=3.0.2",
+]
+lint = [
+    "ruff>=0.13.2",
+]
+
+[tool.uv.sources]
+edc-lab-results-import = { workspace = true }
+clinicedc = { path = "../clinicedc", editable = true }
+clinicedc-tests = { path = "../clinicedc-tests", editable = true }
+clinicedc-utils = { path = "../clinicedc-utils", editable = true }
+clinicedc-constants = { path = "../clinicedc-constants", editable = true }
