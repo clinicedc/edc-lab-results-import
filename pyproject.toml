@@ -1,6 +1,6 @@
 [project]
 name = "edc-lab-results-import"
-version = "0.0.0"
+version = "1.0.0"
 description = "Imports lab results from a folder of PDF reports"
 readme = "README.rst"
 authors = [
