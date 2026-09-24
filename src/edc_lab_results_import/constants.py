@@ -27,3 +27,10 @@ PANEL_NOT_EXPECTED = "panel_not_expected"
 # `ResultImporter.match_baseline_visits`.
 MAX_DAYS_BEFORE_BASELINE = 30
 ON_OR_BEFORE_BASELINE = "on_or_before_baseline"
+
+# review worklist reasons, most actionable first. See
+# `get_df_review_worklist`
+DECIMAL_SLIP = "decimal_slip"
+OUTLIER = "outlier"
+NOT_SCORABLE = "not_scorable"
+SMALL_N = "small_n"
