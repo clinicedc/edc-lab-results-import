@@ -227,5 +227,36 @@ differing only in decimal places the CRF does not hold reads as exactly
 0.0 and sorts to the bottom.
 
 
+The review worklist
+-------------------
+
+``get_df_review_worklist`` takes the comparison frame and lists the CRF
+values to review. Rather than one percentage threshold across every
+analyte, each group of ``utestid`` and units is judged against its own
+distribution of discrepancies.
+
+The discrepancy is ``ln(crf / imported)``, with both values rounded to
+the CRF's ``decimal_places``, at most 2. One unit in the last compared
+digit is precision and counts as no discrepancy. ``score`` is a robust z
+within the group, the distance from the group median in MADs, with the
+MAD floored at one unit in the last digit since most rows agree exactly.
+Where more than one result was imported for a CRF value, the latest is
+compared.
+
+A row is flagged as ``decimal_slip`` (a ratio of about 10 or 100,
+whatever the score), ``outlier`` (``abs(score) >= z_threshold``, default
+3.5, in a group of at least ``min_n``, default 30), ``not_scorable`` (a
+zero or negative value that differs, where ln is undefined) or
+``small_n`` (any discrepancy in a smaller group).
+
+.. code-block:: python
+
+    from edc_lab_results_import.dataframes import get_df_review_worklist
+
+    worklist = get_df_review_worklist()
+
+A discrepancy shared by a whole analyte moves its median and is not an
+outlier. That is a units or scale fault, not a transcription error.
+
 .. _download-gmail-pdfs: https://pypi.python.org/pypi/download-gmail-pdfs
 .. _parse-trial-labs: https://github.com/erikvw/parse-trial-labs
